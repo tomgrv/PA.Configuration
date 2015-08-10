@@ -48,7 +48,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -103,7 +103,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="INIFileParser">
-      <HintPath>..\packages\ini-parser.2.1.1\lib\INIFileParser.dll</HintPath>
+      <HintPath>..\packages\ini-parser.2.2.2\lib\net20\INIFileParser.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -134,7 +134,6 @@
     <None Include="PA.Configuration.nuspec" />
     <None Include="PA.Toolbox.snk" />
     <None Include="packages.config" />
-    <None Include="LICENSE" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PA.Converters\PA.Converters.csproj">
