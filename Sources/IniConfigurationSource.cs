@@ -32,7 +32,7 @@ namespace PA.Configuration
         {
             if (!base.DesignMode && this.settings == null)
             {
-                Trace.TraceInformation("Loading configuration from " + this.settings.FileName);
+                Trace.TraceInformation("Loading configuration from " + this.iniName);
                 this.settings = new Settings(this.iniName, Settings.Format.IniFormat);
                 Trace.TraceInformation("File loaded " + this.settings.FileName);
             }
