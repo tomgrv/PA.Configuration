@@ -202,11 +202,7 @@ namespace PA.Configuration
                         {
                             string value = cp.Source.GetSetting(contract.Name + "/" + i);
 
-                            if (value.StartsWith(">"))
-                            {
-                                yield return new Item(value, new Contract(contract.Name + "/" + i, typeof(object)));
-                            }
-                            else
+                            if (!value.StartsWith(">"))
                             {
                                 yield return new Item(value, contract);
                             }
