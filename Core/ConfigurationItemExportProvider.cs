@@ -30,7 +30,7 @@ namespace PA.Configuration
             lock (this.Source)
             {
                 foreach (Export e in this.GetConfigurationItems(definition)
-                    .GetExports<object>(definition, (t,s) => this.GetInstance(definition, t, s)))
+                                         .GetExports<object>((t,s) => this.GetInstance(definition, t, s)))
                 {
                     yield return e;
                 }
@@ -44,14 +44,7 @@ namespace PA.Configuration
                 return Activator.CreateInstance(type, definition.ContractName, this.Source);
             }
 
-            object value = configvalue.ParseTo<object, string>(type);
-
-            if (value is object)
-            {
-                return value;
-            }
-
-            return null;
+            return configvalue.ParseTo<object, string>(type);
         }
     }
 }
