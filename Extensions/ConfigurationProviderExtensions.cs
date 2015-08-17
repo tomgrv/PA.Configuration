@@ -41,19 +41,19 @@ namespace PA.Configuration
         public static IEnumerable<Lazy<Type>> ExportTypes<T>(this IEnumerable<T> parts, ImportDefinition definition, params Type[] ctorParamsTypes)
              where T : ComposablePartDefinition
         {
-            return parts.Select(part => part.ExportType(definition)).Where(t => t is Lazy<Type> && t.Value.GetConstructor(ctorParamsTypes) != null);
+            return parts.Select(part => part.ExportType(definition)).Where(t => t != null && t.Value.GetConstructor(ctorParamsTypes) != null);
         }
 
         public static IEnumerable<Lazy<Type>> ExportTypes<T>(this IEnumerable<T> parts, Type targetType, params Type[] ctorParamsTypes)
              where T : ComposablePartDefinition
         {
-            return parts.Select(part => part.ExportType(targetType)).Where(t => t is Lazy<Type> && t.Value.GetConstructor(ctorParamsTypes) != null);
+            return parts.Select(part => part.ExportType(targetType)).Where(t => t != null && t.Value.GetConstructor(ctorParamsTypes) != null);
         }
 
         public static IEnumerable<Lazy<Type>> ExportTypes<T>(this IEnumerable<T> parts, ImportDefinition definition)
              where T : ComposablePartDefinition
         {
-            return parts.Select(part => part.ExportType(definition)).Where(lt => lt is Lazy<Type>);
+            return parts.Select(part => part.ExportType(definition)).Where(t => t != null);
         }
 
         public static T FirstOrDefault<T>(this IEnumerable<T> parts, string TypeName)
@@ -61,8 +61,8 @@ namespace PA.Configuration
         {
             return parts.FirstOrDefault(p => p.ExportDefinitions
                 .Any(ed => ReflectionModelServices.GetExportingMember(ed)
-                                        .GetAccessors()
-                                        .Any(a => (a is Type && (a as Type).FullName == TypeName))
+                        .GetAccessors()
+                        .Any(a => (a is Type && (a as Type).FullName == TypeName))
                     )
                 );
         }
@@ -158,8 +158,7 @@ namespace PA.Configuration
                 var getAccessor = ReflectionModelServices
                   .GetImportingMember(definition)
                   .GetAccessors()
-                  .Where(x => x is MethodInfo)
-                  .Select(x => x as MethodInfo)
+                  .OfType<MethodInfo>()
                   .FirstOrDefault(x => (x.Attributes & MethodAttributes.SpecialName) == MethodAttributes.SpecialName && x.Name.StartsWith("get_", StringComparison.Ordinal));
 
                 contractType = getAccessor.ReturnType;
@@ -220,37 +219,26 @@ namespace PA.Configuration
 
         }
 
-
-        public static IEnumerable<Export> GetExports<T>(this IEnumerable<ConfigurationProviderExtensions.Item> ci, ImportDefinition definition, Func<Type, string, T> getInstance)
+        public static IEnumerable<Export> GetExports<T>(this IEnumerable<ConfigurationProviderExtensions.Item> ci, Func<Type, string, T> getInstance)
         {
             foreach (ConfigurationProviderExtensions.Item Configuration in ci)
-            {
-                if (!Configuration.Contract.Name.StartsWith("#/"))
+            {                
+                Type targetType = Configuration.Contract.Type;
+
+                if (targetType.IsArray)
                 {
-                    Type targetType = Configuration.Contract.Type;
-
-                    if (targetType.IsArray)
+                    Array value = Configuration.Value.AsArray(targetType, (t, s) => getInstance(t, s));
+                    if (value != null && value.Length > 0)
                     {
-                        Array value = Configuration.Value.AsArray(targetType, (t, s) => getInstance(t, s));
-
-                        //Array value = Configuration.Value
-                        //    .AsArray()
-                        //    .Select(s => getInstance(targetType.GetElementType(), s))
-                        //    .ToArray(targetType.GetElementType());
-
-                        if (value is Array && value.Length > 0)
-                        {
-                            yield return new Export(definition.ContractName, () => value);
-                        }
+                        yield return new Export(Configuration.Contract.Name, () => value);
                     }
-                    else
+                }
+                else
+                {
+                    object value = getInstance(targetType, Configuration.Value);
+                    if (value != null)
                     {
-                        object value = getInstance(targetType, Configuration.Value);
-
-                        if (value is object)
-                        {
-                            yield return new Export(definition.ContractName, () => value);
-                        }
+                        yield return new Export(Configuration.Contract.Name, () => value);
                     }
                 }
             }
