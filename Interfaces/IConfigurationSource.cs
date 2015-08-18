@@ -4,8 +4,9 @@ using System.ComponentModel;
 namespace PA.Configuration
 
 {
-    public interface IConfigurationSource: ISupportInitialize
+    public interface IConfigurationSource
     {
+        void Open();
         bool ContainsSetting(string key);
         string GetSetting(string key);
         string[] GetSettings(string section);

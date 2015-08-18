@@ -7,14 +7,8 @@ namespace PA.Configuration
 {
     public partial class FileConfigurationSource : Component, IConfigurationSource
     {
-        public void BeginInit()
+        public void Open()
         {
-            
-        }
-
-        public void EndInit()
-        {
-           
         }
 
         public bool ContainsSetting( string key)
