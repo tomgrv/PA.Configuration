@@ -20,17 +20,9 @@ namespace PA.Configuration
             this.iniName = Process.GetCurrentProcess().ProcessName + ".ini";
         }
 
-        public void BeginInit()
+        public void Open()
         {
-            if (this.settings != null)
-            {
-                throw new InvalidOperationException("Cannot init twice");
-            }
-        }
-
-        public void EndInit()
-        {
-            if (!base.DesignMode && this.settings == null)
+            if (this.settings == null)
             {
                 Trace.TraceInformation("Loading configuration from " + this.iniName);
                 this.settings = new Settings(this.iniName, Settings.Format.IniFormat);
@@ -166,5 +158,10 @@ namespace PA.Configuration
             }
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            this.settings.Dispose();
+        }
     }
 }
