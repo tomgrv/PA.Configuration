@@ -161,7 +161,11 @@ namespace PA.Configuration
 		protected override void Dispose(bool disposing)
 		{
 			base.Dispose(disposing);
-			this.settings.Dispose();
+            if (this.settings != null)
+            {
+                this.settings.Dispose();
+            }
+			
 		}
 	}
 }
