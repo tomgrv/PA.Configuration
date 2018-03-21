@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\NuGet.Build.Packaging.0.1.157-dev\build\NuGet.Build.Packaging.props" Condition="Exists('..\packages\NuGet.Build.Packaging.0.1.157-dev\build\NuGet.Build.Packaging.props')" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\Debug\</OutputPath>
@@ -30,8 +31,10 @@
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
-    <ReleaseVersion>4.5.0</ReleaseVersion>
+    <ReleaseVersion></ReleaseVersion>
     <NuGetPackageImportStamp>116e4a35</NuGetPackageImportStamp>
+    <PackageId>PA.ConfigurationProvider</PackageId>
+    <PackOnBuild>true</PackOnBuild>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>PA.Toolbox.snk</AssemblyOriginatorKeyFile>
@@ -97,9 +100,6 @@
     <Reference Include="Mono.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <HintPath>..\packages\Mono.Security.3.2.3.0\lib\net45\Mono.Security.dll</HintPath>
     </Reference>
-    <Reference Include="PA.Converters, Version=4.7.4.0, Culture=neutral, PublicKeyToken=efe7f84d28b0579c, processorArchitecture=MSIL">
-      <HintPath>..\packages\PA.Converters.4.7.4\lib\portable-net45+win+MonoAndroid10+xamarinios10+MonoTouch10\PA.Converters.dll</HintPath>
-    </Reference>
     <Reference Include="PCLCrypto, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d4421c8a4786956c, processorArchitecture=MSIL">
       <HintPath>..\packages\PCLCrypto.1.0.2.15130\lib\net40-Client\PCLCrypto.dll</HintPath>
     </Reference>
@@ -116,6 +116,12 @@
     </Reference>
     <Reference Include="Validation, Version=2.0.0.0, Culture=neutral, PublicKeyToken=2fc06f0d701809a7, processorArchitecture=MSIL">
       <HintPath>..\packages\Validation.2.0.6.15003\lib\portable-net40+sl50+win+wpa81+wp80+Xamarin.iOS10+MonoAndroid10+MonoTouch10\Validation.dll</HintPath>
+    </Reference>
+    <Reference Include="PA.Converters, Version=4.7.4.0, Culture=neutral, PublicKeyToken=efe7f84d28b0579c, processorArchitecture=MSIL">
+      <HintPath>..\packages\PA.Converters.4.7.4\lib\portable-net45+win+MonoAndroid10+xamarinios10+MonoTouch10\PA.Converters.dll</HintPath>
+    </Reference>
+    <Reference Include="PA.Utilities.AssemblyMetadata">
+      <HintPath>..\packages\PA.Utilities.AssemblyMetadata.6.0.2\lib\net45\PA.Utilities.AssemblyMetadata.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -151,12 +157,7 @@
     </PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Import Project="..\packages\GitVersionTask.2.0.1\Build\GitVersionTask.targets" Condition="Exists('..\packages\GitVersionTask.2.0.1\Build\GitVersionTask.targets')" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
-</Project>
+  <Import Project="..\packages\GitVersionTask.3.6.5\build\dotnet\GitVersionTask.targets" Condition="Exists('..\packages\GitVersionTask.3.6.5\build\dotnet\GitVersionTask.targets')" />
+  <Import Project="..\packages\PA.Utilities.AssemblyMetadata.6.0.2\build\PA.Utilities.AssemblyMetadata.targets" Condition="Exists('..\packages\PA.Utilities.AssemblyMetadata.6.0.2\build\PA.Utilities.AssemblyMetadata.targets')" />
+  <Import Project="..\packages\NuGet.Build.Packaging.0.1.157-dev\build\NuGet.Build.Packaging.targets" Condition="Exists('..\packages\NuGet.Build.Packaging.0.1.157-dev\build\NuGet.Build.Packaging.targets')" />
+  </Project>
