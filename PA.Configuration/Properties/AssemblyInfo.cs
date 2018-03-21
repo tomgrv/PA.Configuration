@@ -6,7 +6,7 @@ using PA.Utilities.AssemblyMetadata;
 // Les informations générales relatives à un assembly dépendent de 
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
-[assembly: AssemblyTitle("PA.ConfigurationProvider")]
+[assembly: AssemblyTitle("PA.Configuration")]
 [assembly: AssemblyDescription("MEF catalog and provider for configuration items")]
 [assembly: AssemblyAuthors("tomgrv")]
 
