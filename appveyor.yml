@@ -15,10 +15,10 @@ assembly_info:
   patch: false
   
 before_build:
-- cmd: nuget restore PA.ConfigurationProvider.sln
+- cmd: nuget restore PA.Configuration.sln
 
 build:
-  project: PA.ConfigurationProvider.sln			# path to Visual Studio solution or project
+  project: PA.Configuration.sln			# path to Visual Studio solution or project
   publish_nuget: false				# package projects with .nuspec files and push to artifacts
   publish_nuget_symbols: true     	# generate and publish NuGet symbol packages
   include_nuget_references: true	# add -IncludeReferencedProjects option while packaging NuGet artifacts
@@ -27,7 +27,7 @@ build:
 test: off
 
 artifacts:
-- path: '**/PA.ConfigurationProvider.*.nupkg'
+- path: '**/PA.Configuration.*.nupkg'
 
 deploy:
 - provider: Environment
