@@ -6,7 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7533DCCC-1456-4257-B295-7AA16A860F6F}"
 	ProjectSection(SolutionItems) = preProject
 		common\GlobalAssemblyInfo.cs = common\GlobalAssemblyInfo.cs
-		readme.md = readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D0194E25-483A-404A-B7C2-1E9AB4E88143}"
@@ -22,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Continuous Integration", "C
 		GitVersion.yml = GitVersion.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PA.ConfigurationProvider", "PA.ConfigurationProvider\PA.ConfigurationProvider.csproj", "{40FA1F2A-3B4E-470B-87CA-D8B3792F3E8A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PA.Configuration", "PA.Configuration\PA.Configuration.csproj", "{40FA1F2A-3B4E-470B-87CA-D8B3792F3E8A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

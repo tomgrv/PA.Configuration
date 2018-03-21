@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\NuGet.Build.Packaging.0.1.157-dev\build\NuGet.Build.Packaging.props" Condition="Exists('..\packages\NuGet.Build.Packaging.0.1.157-dev\build\NuGet.Build.Packaging.props')" />
+  <Import Project="..\packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.props" Condition="Exists('..\packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.props')" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\Debug\</OutputPath>
@@ -15,6 +15,7 @@
     <Prefer32Bit>false</Prefer32Bit>
     <WarningLevel>4</WarningLevel>
     <Optimize>false</Optimize>
+    <AssemblyOriginatorKeyFile>..\PA.Configuration.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -28,17 +29,17 @@
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
     <Prefer32Bit>false</Prefer32Bit>
     <WarningLevel>4</WarningLevel>
+    <AssemblyOriginatorKeyFile>..\PA.ConfigurationProvider.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
     <ReleaseVersion></ReleaseVersion>
     <NuGetPackageImportStamp>116e4a35</NuGetPackageImportStamp>
-    <PackageId>PA.ConfigurationProvider</PackageId>
+    <PackageId>PA.Configuration</PackageId>
     <PackOnBuild>true</PackOnBuild>
+    <RootNamespace>PA.ConfigurationProvider</RootNamespace>
   </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>PA.Toolbox.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
+ 
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -63,6 +64,16 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <CustomCommands>
+      <CustomCommands>
+        <Command>
+          <type>AfterBuild</type>
+          <command>"%systemroot%\system32\xcopy.exe" /y  "${TargetDir}\*.nupkg" "${SolutionDir}"</command>
+          <workingdir>${ProjectDir}</workingdir>
+          <externalConsole>True</externalConsole>
+        </Command>
+      </CustomCommands>
+    </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -147,8 +158,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="PA.Configuration.nuspec" />
-    <None Include="PA.Toolbox.snk" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -157,7 +166,8 @@
     </PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Import Project="..\packages\GitVersionTask.3.6.5\build\dotnet\GitVersionTask.targets" Condition="Exists('..\packages\GitVersionTask.3.6.5\build\dotnet\GitVersionTask.targets')" />
-  <Import Project="..\packages\PA.Utilities.AssemblyMetadata.6.0.2\build\PA.Utilities.AssemblyMetadata.targets" Condition="Exists('..\packages\PA.Utilities.AssemblyMetadata.6.0.2\build\PA.Utilities.AssemblyMetadata.targets')" />
-  <Import Project="..\packages\NuGet.Build.Packaging.0.1.157-dev\build\NuGet.Build.Packaging.targets" Condition="Exists('..\packages\NuGet.Build.Packaging.0.1.157-dev\build\NuGet.Build.Packaging.targets')" />
+	<Import Project="..\packages\PA.Utilities.AssemblyMetadata.6.0.2\build\PA.Utilities.AssemblyMetadata.targets" Condition="Exists('..\packages\PA.Utilities.AssemblyMetadata.6.0.2\build\PA.Utilities.AssemblyMetadata.targets')" />
+  
+	<Import Project="..\packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.targets" Condition="Exists('..\packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.targets')" />
+	<Import Project="..\packages\GitVersionTask.4.0.0-beta0012\build\GitVersionTask.targets" Condition="Exists('..\packages\GitVersionTask.4.0.0-beta0012\build\GitVersionTask.targets')" />
   </Project>
