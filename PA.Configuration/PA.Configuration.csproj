@@ -16,7 +16,7 @@
     <AssemblyOriginatorKeyFile>..\PA.ConfigurationProvider.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <SignAssembly>true</SignAssembly>
     <ReleaseVersion>
     </ReleaseVersion>
@@ -97,10 +97,10 @@
   <PropertyGroup>
     <Authors>tomgrv</Authors>
     <Company>Perspikapps</Company>
-    <Product>PA.TileList</Product>
+    <Product>PA.Configuration</Product>
     <Version>1.0.0</Version>
     <Description>1.0.0</Description>
-    <PackageProjectUrl>http://github.io/tomgrv/pa.tilelist</PackageProjectUrl>
-    <RepositoryUrl>http://github.io/tomgrv/pa.tilelist</RepositoryUrl>
+    <PackageProjectUrl>http://github.io/tomgrv/pa.configuration</PackageProjectUrl>
+    <RepositoryUrl>http://github.io/tomgrv/pa.configuration</RepositoryUrl>
   </PropertyGroup>
 </Project>
